@@ -8,7 +8,9 @@ build()(
   echo "git_version=$git_version"
 
   mkdir -p out
-  curl -fsSL "https://github.com/git-for-windows/git/releases/download/v$portablegit_version/PortableGit-$git_version-64-bit.7z.exe" \
+  url="https://github.com/git-for-windows/git/releases/download/v$portablegit_version/PortableGit-$git_version-64-bit.7z.exe" \
+  echo "url=$url"
+  curl -fsSL "$url"
     -o out/portablegit.7z.exe
 
   mkdir -p out/portablegit
