@@ -8,7 +8,8 @@ jobs:
   get-data:
     outputs:
       package-version: ${{ steps.get-package-version.outputs.package-version }}
-      git-for-windows-version: ${{ steps.get-git-for-windows-version.outputs.git-for-windows-version }}
+      git-for-windows-version:
+        ${{ steps.get-git-for-windows-version.outputs.git-for-windows-version }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

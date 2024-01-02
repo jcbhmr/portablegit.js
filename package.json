@@ -2,6 +2,17 @@
   "name": "portablegit",
   "version": "2.43.0-windows.1+2.43.0.windows.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
+  "keywords": [
+    "git",
+    "npm",
+    "binary",
+    "portable",
+    "portableapps",
+    "npx",
+    "redistribution",
+    "git-for-windows",
+    "portablegit"
+  ],
   "homepage": "https://github.com/jcbhmr/portablegit.js#readme",
   "repository": "github:jcbhmr/portablegit",
   "license": "GPL-2.0-or-later",
