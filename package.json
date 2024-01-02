@@ -1,39 +1,39 @@
 {
   "name": "portablegit",
   "version": "2.43.0-windows.1",
+  "description": "🔄 Redistribution of Git for Windows PortableGit",
+  "homepage": "https://github.com/jcbhmr/portablegit.js#readme",
+  "repository": "github:jcbhmr/portablegit",
+  "license": "GPL-2.0-or-later",
+  "contributors": [
+    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
+  ],
   "type": "module",
+  "exports": {
+    "./*": "./out/portablegit/*"
+  },
   "bin": {
-    "portablegit": "out/portablegit/bin/git.exe",
     "bash": "out/portablegit/bin/bash.exe",
-    "sh": "out/portablegit/bin/sh.exe",
     "git": "out/portablegit/bin/git.exe",
     "git-bash": "out/portablegit/git-bash.exe",
     "git-cmd": "out/portablegit/git-cmd.exe",
     "git-gui": "out/portablegit/cmd/git-gui.exe",
-    "gitk": "out/portablegit/cmd/gitk.exe"
-  },
-  "exports": {
-    "./*": "./out/portablegit/*"
+    "gitk": "out/portablegit/cmd/gitk.exe",
+    "portablegit": "out/portablegit/bin/git.exe",
+    "sh": "out/portablegit/bin/sh.exe"
   },
   "files": [
     "out/portablegit"
-  ],
-  "os": [
-    "win32"
-  ],
-  "cpu": [
-    "x64"
   ],
   "scripts": {
     "build": "bash ./just build",
     "pretest": "npm run build",
     "test": "npx git --version && npx bash --version"
   },
-  "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/jcbhmr/portablegit.js#readme",
-  "repository": "github:jcbhmr/portablegit",
-  "description": "🔄 Redistribution of Git for Windows PortableGit",
-  "contributors": [
-    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
   ]
 }
