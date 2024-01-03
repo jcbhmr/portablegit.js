@@ -18,4 +18,4 @@ build()(
   7z x -aos ../portablegit.7z.exe
 )
 
-cd "$(dirname "${BASH_SOURCE[0]}")"; c=$1; shift; "$c" "$@"
+cd "$(dirname "${BASH_SOURCE[0]}")"; "$@"
