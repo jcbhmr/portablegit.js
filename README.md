@@ -122,4 +122,5 @@ automated! 🤖
 [the gitk gui]: https://git-scm.com/docs/gitk/
 [git - installing git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [install Git for Windows normally on your system]: https://gitforwindows.org/
+[git-for-windows/git]: https://github.com/git-for-windows/git
 <!-- prettier-ignore-end -->
