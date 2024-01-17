@@ -29,7 +29,7 @@ jobs:
       needs.get-data.outputs.package-version != needs.get-data.outputs.git-for-windows-version
     permissions:
       contents: write
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,10 +37,12 @@ jobs:
           node-version: "20"
           cache: npm
       - run: npm ci
-      - run: npm version "$NEW_VERSION" --no-git-tag-version
+      - shell: bash
+        run: npm version "$NEW_VERSION" --no-git-tag-version
         env:
           NEW_VERSION: ${{ needs.get-data.outputs.git-for-windows-version }}
-      - run: git branch -b gh-pr-create-$RANDOM
+      - shell: bash
+        run: git branch -b gh-pr-create-$RANDOM
       - uses: actions4git/add-commit-push@v1
       - run: gh pr create
         env:
