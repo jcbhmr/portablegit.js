@@ -13,7 +13,6 @@ const gitVersion = gitForWindowsVersion.match(/^\d+\.\d+\.\d+/)[0]
 
 const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`
 const url = `https://github.com/git-for-windows/git/releases/download/v${gitForWindowsVersion}/${filename}`
-console.error(`%cDownloading%c from %o`, "color:lime;font-weight:bold", "", url)
 const response = await fetch(url)
 const archivePath = resolve(`out/${filename}`)
 await mkdir(dirname(archivePath), { recursive: true })
