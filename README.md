@@ -1,16 +1,16 @@
 # PortableGit via npm
 
-🔄 Redistribution of [Git for Windows] [PortableGit]
+🔄 Redistribution of [Git for Windows](https://gitforwindows.org/)'s [PortableGit](https://git-scm.com/download/win#:~:text=Portable%20(%22thumbdrive%20edition%22))
 
 <table align=center><td>
 
 ```sh
-npx portablegit add --all
-npx portablegit commit --message "Hello world!"
-npx --package portablegit bash -c "grep version package.json"
-npx --package portablegit sh ./build.sh
-npx --package portablegit git-bash
-npx --package portablegit gitk HEAD
+npx -p portablegit git add --all
+npx -p portablegit git commit --message "Hello world!"
+npx -p portablegit bash -c "grep version package.json"
+npx -p portablegit sh ./build.sh
+npx -p portablegit git-bash
+npx -p portablegit gitk HEAD
 ```
 
 </table>
@@ -28,23 +28,19 @@ npx --package portablegit gitk HEAD
 ![Yarn](https://img.shields.io/static/v1?style=for-the-badge&message=Yarn&color=2C8EBB&logo=Yarn&logoColor=FFFFFF&label=)
 ![Bun](https://img.shields.io/static/v1?style=for-the-badge&message=Bun&color=000000&logo=Bun&logoColor=FFFFFF&label=)
 
-You can install this package using npm or your favorite npm package manager. If
-possible you probably should just use the user's global [Git for Windows]
-installation and not use this package.
+You can install this package using npm or your favorite npm package manager. If possible you should use the user or global [Git for Windows](https://gitforwindows.org/) installation instead of this package.
 
 ```sh
 npm install --save-dev portablegit
 ```
 
-⚠️ It's not recommended to `npm install --global` this package. Instead,
-[install Git for Windows normally on your system].
+⚠️ It's not recommended to `npm install --global` this package. [Install Git for Windows normally](https://gitforwindows.org/) on your system instead.
 
-ℹ There is no JavaScript component to this package; it's just a redistribution
-of the various PortableGit files and binaries.
+ℹ There is no JavaScript component to this package; it's just a redistribution of the various PortableGit files and binaries.
 
 🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
 
-Interested in installing Git globally? Check out [Git - Installing Git].
+Interested in installing Git globally on more that just Windows machines? Check out [Git - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
 ## Usage
 
@@ -55,43 +51,32 @@ binaries! It's just that these binaries are Windows-specific. 🤷‍♂️
 
 ```sh
 npx portablegit --version
-#=> git version 2.43.0.windows.1
+#=> git version 2.X.Y.windows.Z
 ```
 
 Available binary commands exposed through this npm package are:
 
-- **`portablegit`:** Alias to `git.exe`. Makes it so you can `npx portablegit`
-  and run Git without specifying `--package` like
-  `npx --package portablegit git`.
-- **`bash`:** Git Bash `bash.exe`. Useful for cross-platform scripting. You can
-  run Bash scripts on Windows!
+- **`bash`:** Git Bash `bash.exe`. Useful for cross-platform scripting. You can run Bash scripts on Windows!
 - **`sh`:** Git Bash `sh.exe`. Runs `bash.exe` in POSIX mode.
-- **`git`:** The actual `git.exe` binary for Windows. See [the Git website] to
-  learn more about Git.
-- **`git-bash`:** Launches a terminal emulator running Git Bash. Uses [MinTTY].
-- **`git-cmd`:** Starts a `cmd.exe` subshell preloaded with `git.exe` and other
-  things on the `$PATH`. Does **not** launch a new window.
-- **`git-gui`:** Starts [the Git GUI].
-- **`gitk`:** Starts [the GitK GUI].
+- **`git`:** The actual `git.exe` binary for Windows. See [the Git website] to learn more about Git.
+- **`git-bash`:** Launches a terminal emulator running Git Bash. Uses [MinTTY](https://mintty.github.io/).
+- **`git-cmd`:** Starts a `cmd.exe` subshell preloaded with `git.exe` and other things in `$PATH`. Does **not** launch a new window.
+- **`git-gui`:** Starts [the Git GUI](https://git-scm.com/docs/git-gui).
+- **`gitk`:** Starts [the GitK GUI](https://git-scm.com/docs/gitk/).
 
-You can `import.meta.resolve()` or `require.resolve()` anything that would
-normally be in the extracted `PortableGit/*` folder. Here's an example:
+You can `import.meta.resolve()` or `require.resolve()` anything that would normally be in the extracted `PortableGit/*` folder. Here's an example:
 
 ```js
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-
-const catFileURL = import.meta.resolve("portablegit/usr/bin/cat.exe");
-console.log(catFileURL);
+const cat = import.meta.resolve("portablegit/usr/bin/cat.exe");
+console.log(cat);
 //=> 'file:///C:/Users/you/Documents/myproject/node_modules/portablegit/out/portablegit/usr/bin/cat.exe'
 
-const openBracketPath = require.resolve("portablegit/usr/bin/[.exe");
-console.log(openBracketPath);
-//=> 'C:\\Users\\you\\Documents\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\[.exe'
+const cut = require.resolve("portablegit/usr/bin/cut.exe");
+console.log(cut);
+//=> 'C:\\Users\\you\\Documents\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\cut.exe'
 ```
 
-This can be useful if you need to resolve the path to a specific binary
-(`cat.exe`, `[.exe`, `cut.exe`, etc.) that isn't exposed by default.
+This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default.
 
 ## Development
 
@@ -99,28 +84,4 @@ This can be useful if you need to resolve the path to a specific binary
 ![npm](https://img.shields.io/static/v1?style=for-the-badge&message=npm&color=CB3837&logo=npm&logoColor=FFFFFF&label=)
 ![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
 
-You'll need a Windows computer to actually make sure that things work as
-installed. After cloning and `npm install`-ing run `npm run build` to download
-and extract the PortableGit installation to the `out/` folder. Make sure
-everything works with your changes and don't forget to rebuild if you make
-changes to the `./just build` script.
-
-This project uses some magic GitHub Actions to automatically open PRs for each
-new [git-for-windows/git] release. If the automated checks pass, it gets merged!
-Each merge to `main` that has a `package.json` `version` that isn't tagged &
-released will trigger a new release. Each new release will trigger
-`npm run build` and `npm publish`. Humans should get notified at various points
-along this process. There's currently no manual approval requirement; it's all
-automated! 🤖
-
-<!-- prettier-ignore-start -->
-[git for windows]: https://gitforwindows.org/
-[portablegit]: https://git-scm.com/download/win#:~:text=Portable%20(%22thumbdrive%20edition%22)
-[the Git website]: https://git-scm.com/
-[mintty]: https://mintty.github.io/
-[the git gui]: https://git-scm.com/docs/git-gui
-[the gitk gui]: https://git-scm.com/docs/gitk/
-[git - installing git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-[install Git for Windows normally on your system]: https://gitforwindows.org/
-[git-for-windows/git]: https://github.com/git-for-windows/git
-<!-- prettier-ignore-end -->
+You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. There are some CI automation scripts in `scripts/` too if you're interested. This project uses some magic GitHub Actions to automatically open PRs for each new [git-for-windows/git](https://github.com/git-for-windows/git) release. If the automated checks pass, it gets merged! Each merge to `main` that has a `package.json` `version` that isn't tagged & released will trigger a new release. Each new release will trigger `npm run build` and `npm publish`. Humans should get notified at various points along this process. There's currently no manual approval requirement; it's all automated! 🤖
