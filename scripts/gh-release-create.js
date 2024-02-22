@@ -14,5 +14,5 @@ const currentVersionRelease = await octokit.rest.repos.getReleaseByTag({
 }).catch(() => null)
 if (!currentVersionRelease) {
     const newTag = `v${package_.version}`
-    await $`gh release create ${newTag} --generate-notes`
+    await $({ stdio: "inherit" })`gh release create ${newTag} --generate-notes`
 }
