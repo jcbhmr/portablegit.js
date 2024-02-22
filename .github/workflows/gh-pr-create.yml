@@ -5,28 +5,7 @@ on:
   workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
-  get-data:
-    outputs:
-      package-version: ${{ steps.get-package-version.outputs.package-version }}
-      git-for-windows-version:
-        ${{ steps.get-git-for-windows-version.outputs.git-for-windows-version }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - id: get-package-version
-        run: |
-          package_version=$(jq -r .version package.json)
-          echo "package-version=$package_version" >> "$GITHUB_OUTPUT"
-      - id: get-git-for-windows-version
-        run: |
-          git_for_windows_version=$(gh release view --repo git-for-windows/git --json tagName --jq '.tagName[1:]')
-          echo "git-for-windows-version=$git_for_windows_version" >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   gh-pr-create:
-    needs: get-data
-    if: |
-      needs.get-data.outputs.package-version != needs.get-data.outputs.git-for-windows-version
     permissions:
       contents: write
     runs-on: windows-latest
@@ -34,20 +13,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: lts
           cache: npm
       - run: npm ci
-      - shell: bash
-        run: npm version "$NEW_VERSION" --no-git-tag-version
-        env:
-          NEW_VERSION: ${{ needs.get-data.outputs.git-for-windows-version }}
-      - shell: bash
-        run: git branch -b gh-pr-create-$RANDOM
-      - uses: actions4git/add-commit-push@v1
-      - run: gh pr create
-        env:
-          GH_TOKEN: ${{ secrets.EXTRA_GITHUB_TOKEN }}
-      - run: sleep 10
-      - run: gh pr merge --auto
+      - run: npm run gh-pr-create
         env:
           GH_TOKEN: ${{ secrets.EXTRA_GITHUB_TOKEN }}
