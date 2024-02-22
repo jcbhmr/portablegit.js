@@ -1,6 +1,6 @@
 {
-  "name": "portablegit",
-  "version": "2.43.0-windows.1+2.43.0.windows.1",
+  "name": "@git-for-windows/git",
+  "version": "100.0.0+2.43.0.windows.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
   "keywords": [
     "git",
@@ -21,30 +21,50 @@
   ],
   "type": "module",
   "exports": {
-    "./*": "./out/portablegit/*"
+    ".": "./out/PortableGit/bin/git.exe",
+    "./bash": "./out/PortableGit/bin/bash.exe",
+    "./bash.exe": "./out/PortableGit/bin/bash.exe",
+    "./git": "./out/PortableGit/bin/git.exe",
+    "./git.exe": "./out/PortableGit/bin/git.exe",
+    "./git-bash": "./out/PortableGit/git-bash.exe",
+    "./git.exe-bash": "./out/PortableGit/git-bash.exe",
+    "./git-cmd": "./out/PortableGit/git-cmd.exe",
+    "./git.exe-cmd": "./out/PortableGit/git-cmd.exe",
+    "./git-gui": "./out/PortableGit/cmd/git-gui.exe",
+    "./git.exe-gui": "./out/PortableGit/cmd/git-gui.exe",
+    "./gitk": "./out/PortableGit/cmd/gitk.exe",
+    "./gitk.exe": "./out/PortableGit/cmd/gitk.exe",
+    "./sh": "./out/PortableGit/bin/sh.exe",
+    "./sh.exe": "./out/PortableGit/bin/sh.exe",
+    "./PortableGit/*": "./out/PortableGit/*"
   },
   "bin": {
-    "bash": "out/portablegit/bin/bash.exe",
-    "git": "out/portablegit/bin/git.exe",
-    "git-bash": "out/portablegit/git-bash.exe",
-    "git-cmd": "out/portablegit/git-cmd.exe",
-    "git-gui": "out/portablegit/cmd/git-gui.exe",
-    "gitk": "out/portablegit/cmd/gitk.exe",
-    "portablegit": "out/portablegit/bin/git.exe",
-    "sh": "out/portablegit/bin/sh.exe"
+    "bash": "out/PortableGit/bin/bash.exe",
+    "git": "out/PortableGit/bin/git.exe",
+    "git-bash": "out/PortableGit/git-bash.exe",
+    "git-cmd": "out/PortableGit/git-cmd.exe",
+    "git-gui": "out/PortableGit/cmd/git-gui.exe",
+    "gitk": "out/PortableGit/cmd/gitk.exe",
+    "portablegit": "out/PortableGit/bin/git.exe",
+    "sh": "out/PortableGit/bin/sh.exe"
   },
   "files": [
-    "out/portablegit"
+    "out/PortableGit"
   ],
   "scripts": {
-    "build": "bash ./just build",
+    "build": "node ./scripts/build.js",
+    "gh-pr-create": "node ./scripts/gh-pr-create.js",
+    "gh-release-create": "node ./scripts/gh-release-create.js",
     "pretest": "npm run build",
-    "test": "npx git --version && npx bash --version"
+    "test": "npx -p . git --version && npx -p . bash --version"
   },
   "os": [
     "win32"
   ],
   "cpu": [
     "x64"
-  ]
+  ],
+  "devDependencies": {
+    "execa": "^8.0.1"
+  }
 }

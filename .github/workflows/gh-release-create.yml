@@ -4,34 +4,18 @@ on:
     branches: "main"
     paths:
       - package.json
+      - package-lock.json
+      - scripts/gh-release-create.js
       - .github/workflows/gh-release-create.yml
 concurrency: ${{ github.workflow }}
 jobs:
-  get-data:
-    outputs:
-      package-version: ${{ steps.get-package-version.outputs.package-version }}
-      release-version: ${{ steps.get-release-version.outputs.release-version }}
+  gh-release-create:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - id: get-package-version
-        run: |
-          package_version=$(jq -r .version package.json)
-          echo "package-version=$package_version" >> "$GITHUB_OUTPUT"
-      - id: get-release-version
-        run: |
-          release_version=$(gh release view --json tagName --jq '.tagName[1:]' || true)
-          echo "release-version=$release_version" >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  gh-release-create:
-    needs: get-data
-    if: |
-      needs.get-data.outputs.package-version != needs.get-data.outputs.release-version
-    runs-on: ubuntu-latest
-    steps:
-      - run: gh release create "$NEW_TAG" --generate-notes
-        env:
-          GH_TOKEN: ${{ secrets.EXTRA_GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NEW_TAG: v${{ needs.get-data.outputs.package-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts
+          cache: npm
+      - run: npm ci
+      - run: npm run gh-release-create
