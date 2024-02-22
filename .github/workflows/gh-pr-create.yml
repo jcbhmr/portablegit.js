@@ -1,5 +1,10 @@
 name: gh pr create
 on:
+  push:
+    branches: "main"
+    paths:
+      - scripts/gh-pr-create.js
+      - .github/workflows/gh-pr-create.yml
   schedule:
     - cron: "18 */6 * * *"
   workflow_dispatch:
