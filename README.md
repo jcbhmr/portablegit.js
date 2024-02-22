@@ -29,8 +29,6 @@ npx -p portablegit gitk HEAD
 ![Bun](https://img.shields.io/static/v1?style=for-the-badge&message=Bun&color=000000&logo=Bun&logoColor=FFFFFF&label=)
 ![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
 
-🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
-
 You can install this package using npm or your favorite npm package manager. If possible you should use the user or global [Git for Windows](https://gitforwindows.org/) installation instead of this package.
 
 ```sh
@@ -38,6 +36,8 @@ npm install --save-dev portablegit
 ```
 
 ⚠️ **It's not recommended to install this package globally!** [Install Git for Windows normally](https://gitforwindows.org/) on your system instead. Interested in installing Git globally on more that just Windows machines? Check out [Git - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
 
 ℹ There is no JavaScript component to this package; it's just a redistribution of the various PortableGit files and binaries.
 
