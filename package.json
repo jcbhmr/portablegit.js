@@ -1,5 +1,5 @@
 {
-  "name": "@git-for-windows/git",
+  "name": "portablegit",
   "version": "100.0.0+2.43.0.windows.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
   "keywords": [
