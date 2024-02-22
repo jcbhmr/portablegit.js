@@ -17,3 +17,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run gh-pr-create
+        env:
+          GH_TOKEN: ${{ secrets.EXTRA_GITHUB_TOKEN }}

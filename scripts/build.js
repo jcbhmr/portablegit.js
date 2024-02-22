@@ -8,11 +8,11 @@ import { Writable } from "node:stream"
 const packageText = await readFile("./package.json", "utf8")
 const package_ = JSON.parse(packageText)
 
-const [, portableGitVersion] = package_.version.split("+")
-const gitVersion = portableGitVersion.match(/^\d+\.\d+\.\d+/)[0]
+const [, gitForWindowsVersion] = package_.version.split("+")
+const gitVersion = gitForWindowsVersion.match(/^\d+\.\d+\.\d+/)[0]
 
 const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`
-const url = `https://github.com/git-for-windows/git/releases/download/v${portableGitVersion}/${filename}`
+const url = `https://github.com/git-for-windows/git/releases/download/v${gitForWindowsVersion}/${filename}`
 console.error(`%cDownloading%c from %o`, "color:lime;font-weight:bold", "", url)
 const response = await fetch(url)
 const archivePath = resolve(`out/${filename}`)

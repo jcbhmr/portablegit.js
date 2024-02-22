@@ -65,6 +65,7 @@
     "x64"
   ],
   "devDependencies": {
+    "@actions/github": "^6.0.0",
     "execa": "^8.0.1"
   }
 }
