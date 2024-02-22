@@ -79,8 +79,7 @@ This can be useful if you need to resolve the path to a specific binary (`cat.ex
 
 ## Development
 
-![Bash](https://img.shields.io/static/v1?style=for-the-badge&message=Bash&color=4EAA25&logo=GNU+Bash&logoColor=FFFFFF&label=)
-![npm](https://img.shields.io/static/v1?style=for-the-badge&message=npm&color=CB3837&logo=npm&logoColor=FFFFFF&label=)
+![Node.js](https://img.shields.io/static/v1?style=for-the-badge&message=Node.js&color=339933&logo=Node.js&logoColor=FFFFFF&label=)
 ![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
 
 You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. There are some CI automation scripts in `scripts/` too if you're interested. This project uses some magic GitHub Actions to automatically open PRs for each new [git-for-windows/git](https://github.com/git-for-windows/git) release. If the automated checks pass, it gets merged! Each merge to `main` that has a `package.json` `version` that isn't tagged & released will trigger a new release. Each new release will trigger `npm run build` and `npm publish`. Humans should get notified at various points along this process. There's currently no manual approval requirement; it's all automated! 🤖
