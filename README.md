@@ -34,7 +34,7 @@ You can install this package using npm or your favorite npm package manager. If 
 npm install --save-dev portablegit
 ```
 
-⚠️ It's not recommended to `npm install --global` this package. [Install Git for Windows normally](https://gitforwindows.org/) on your system instead.
+⚠️ **It's not recommended to install this package globally!** [Install Git for Windows normally](https://gitforwindows.org/) on your system instead.
 
 ℹ There is no JavaScript component to this package; it's just a redistribution of the various PortableGit files and binaries.
 
