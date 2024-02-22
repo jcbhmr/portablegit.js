@@ -23,12 +23,12 @@ if (gitForWindowsVersion !== latestGitForWindowsVersion && !openPR) {
         branch: newVersion
     }).catch(() => null)
     if (!existingBranch) {
-        await $`npm version ${newVersion} --no-git-tag-version`
-        await $`git branch -b ${newVersion}`
-        await $`git add -A`
-        await $`git commit -m "Update version"`
-        await $`gh pr create`
+        await $({ stdio: "inherit" })`npm version ${newVersion} --no-git-tag-version`
+        await $({ stdio: "inherit" })`git branch -b ${newVersion}`
+        await $({ stdio: "inherit" })`git add -A`
+        await $({ stdio: "inherit" })`git commit -m "Update version"`
+        await $({ stdio: "inherit" })`gh pr create`
         await new Promise(r => setTimeout(r, 5000))
-        await $`gh pr merge --auto`
+        await $({ stdio: "inherit" })`gh pr merge --auto`
     }
 }
