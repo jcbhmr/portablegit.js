@@ -57,7 +57,7 @@ Available binary commands exposed through this npm package are:
 
 - **`bash`:** Git Bash `bash.exe`. Useful for cross-platform scripting. You can run Bash scripts on Windows!
 - **`sh`:** Git Bash `sh.exe`. Runs `bash.exe` in POSIX mode.
-- **`git`:** The actual `git.exe` binary for Windows. See [the Git website] to learn more about Git.
+- **`git`:** The actual `git.exe` binary for Windows. See [the Git website](https://git-scm.com/) to learn more about Git.
 - **`git-bash`:** Launches a terminal emulator running Git Bash. Uses [MinTTY](https://mintty.github.io/).
 - **`git-cmd`:** Starts a `cmd.exe` subshell preloaded with `git.exe` and other things in `$PATH`. Does **not** launch a new window.
 - **`git-gui`:** Starts [the Git GUI](https://git-scm.com/docs/git-gui).
