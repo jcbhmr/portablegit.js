@@ -8,7 +8,7 @@ import { Writable } from "node:stream"
 const packageText = await readFile("./package.json", "utf8")
 const package_ = JSON.parse(packageText)
 
-const [, gitForWindowsVersion] = package_.version.split("+")
+const gitForWindowsVersion = package_.version.split("+")[1]
 const gitVersion = gitForWindowsVersion.match(/^\d+\.\d+\.\d+/)[0]
 
 const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`
