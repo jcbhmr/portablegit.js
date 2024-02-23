@@ -14,7 +14,7 @@ const latestGitForWindowsVersion = (await octokit.rest.repos.getLatestRelease({
     repo: "git",
 })).data.tag_name.slice(1)
 
-if (gitForWindowsVersion !== latestGitForWindowsVersion && !openPR) {
+if (gitForWindowsVersion !== latestGitForWindowsVersion) {
     const newVersion = `${baseVersion}+${latestGitForWindowsVersion}`
     
     const existingBranch  = await octokit.rest.repos.getBranch({
