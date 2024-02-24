@@ -7,11 +7,17 @@ on:
       - package-lock.json
       - scripts/gh-release-create.js
       - .github/workflows/gh-release-create.yml
+  workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
+  npm-test:
+    uses: ./.github/workflows/npm-test.yml
   gh-release-create:
+    needs: npm-test
     permissions:
       contents: write
+    outputs:
+      new-version: ${{ steps.xversion.outputs.new-version }}
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +25,6 @@ jobs:
         with:
           node-version: "lts/*"
           cache: npm
-          registry-url: https://registry.npmjs.org/
       - run: npm ci
       - id: xversion
         run: npm run xversion
@@ -32,9 +37,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEW_VERSION: ${{ steps.xversion.outputs.new-version }}
-      - if: steps.xversion.outputs.new-version
-        run: npm run build
-      - if: steps.xversion.outputs.new-version
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  npm-publish:
+    needs: gh-release-create
+    if: needs.gh-release-create.outputs.new-version
+    uses: ./.github/workflows/npm-publish.yml
+    secrets: inherit

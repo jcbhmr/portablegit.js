@@ -15,6 +15,7 @@ on:
       - README.md
       - .github/**
       - "!.github/workflows/npm-test.yml"
+  workflow_call:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
