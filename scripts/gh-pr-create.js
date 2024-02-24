@@ -27,7 +27,7 @@ if (gitForWindowsVersion !== latestGitForWindowsVersion) {
     }).catch(() => null)
     if (!existingBranch) {
         await $({ stdio: "inherit" })`npm version ${newVersion} --no-git-tag-version`
-        await $({ stdio: "inherit" })`git branch -b ${newVersion}`
+        await $({ stdio: "inherit" })`git checkout -b ${newVersion}`
         await $({ stdio: "inherit" })`git add -A`
         await $({ stdio: "inherit" })`git commit -m "Update version"`
         await $({ stdio: "inherit" })`gh pr create`
