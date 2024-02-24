@@ -16,7 +16,9 @@
   "homepage": "https://github.com/jcbhmr/portablegit.js#readme",
   "repository": "github:jcbhmr/portablegit",
   "license": "GPL-2.0-or-later",
-  "contributors": ["Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"],
+  "contributors": [
+    "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.me/)"
+  ],
   "type": "module",
   "exports": {
     "./*": "./out/PortableGit/*"
@@ -30,17 +32,26 @@
     "gitk": "out/PortableGit/cmd/gitk.exe",
     "sh": "out/PortableGit/bin/sh.exe"
   },
-  "files": ["out/PortableGit"],
+  "files": [
+    "out/PortableGit"
+  ],
   "scripts": {
     "build": "node ./scripts/build.js",
     "xversion": "node ./scripts/xversion.js",
     "pretest": "npm run build",
-    "test": "npx -p . git --version && npx -p . bash --version"
+    "test": "npx -p . git --version && npx -p . bash --version",
+    "format": "prettier -w ."
   },
-  "os": ["win32"],
-  "cpu": ["x64"],
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "devDependencies": {
+    "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
-    "execa": "^8.0.1"
+    "execa": "^8.0.1",
+    "prettier": "^3.2.5"
   }
 }

@@ -1,6 +1,6 @@
 # PortableGit via npm
 
-🔄 Redistribution of [Git for Windows](https://gitforwindows.org/)'s [PortableGit](https://git-scm.com/download/win#:~:text=Portable%20(%22thumbdrive%20edition%22))
+🔄 Redistribution of [Git for Windows](https://gitforwindows.org/)'s [PortableGit](https://git-scm.com/download/win)
 
 <table align=center><td>
 
