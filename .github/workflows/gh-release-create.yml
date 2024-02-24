@@ -7,6 +7,8 @@ on:
       - package-lock.json
       - scripts/gh-release-create.js
       - .github/workflows/gh-release-create.yml
+  schedule:
+    - cron: "41 */6 * * *"
   workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
