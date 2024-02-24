@@ -33,6 +33,6 @@ if (gitForWindowsVersion !== latestGitForWindowsVersion) {
         await $({ stdio: "inherit" })`git push -u origin ${newVersion}`
         await $({ stdio: "inherit" })`gh pr create -f`
         await new Promise(r => setTimeout(r, 5000))
-        await $({ stdio: "inherit" })`gh pr merge --auto`
+        await $({ stdio: "inherit" })`gh pr merge ${newVersion} --auto`
     }
 }
