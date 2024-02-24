@@ -32,7 +32,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEW_VERSION: ${{ steps.xversion.outputs.new-version }}
-  npm-publish:
-    needs: gh-release-create
-    uses: ./.github/workflows/npm-publish.yml
-    secrets: inherit
+      - if: steps.xversion.outputs.new-version
+        run: npm run build
+      - if: steps.xversion.outputs.new-version
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
