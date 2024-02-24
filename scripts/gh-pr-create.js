@@ -15,7 +15,10 @@ const latestGitForWindowsVersion = (await octokit.rest.repos.getLatestRelease({
 })).data.tag_name.slice(1)
 
 if (gitForWindowsVersion !== latestGitForWindowsVersion) {
-    const newVersion = `${baseVersion}+${latestGitForWindowsVersion}`
+    const v = baseVersion.split(".", 3);
+    v[1] = (+v[1] + 1).toString();
+    v[2] = "0"
+    const newVersion = `${v.join(".")}+${latestGitForWindowsVersion}`
     
     const existingBranch  = await octokit.rest.repos.getBranch({
         owner: process.env.GITHUB_REPOSITORY.split("/")[0],
