@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { $ } from "execa"
-import { readFile } from "node:fs/promises"
+import { readFile, writeFile } from "node:fs/promises"
 import * as github from "@actions/github"
 
 const packageText = await readFile("./package.json", "utf8")
