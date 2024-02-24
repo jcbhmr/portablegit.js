@@ -2,11 +2,12 @@ name: gh release create
 on:
   push:
     branches: "main"
-    paths:
-      - package.json
-      - package-lock.json
-      - scripts/gh-release-create.js
-      - .github/workflows/gh-release-create.yml
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - .github/**
+      - "!.github/workflows/gh-release-create.yml"
   schedule:
     - cron: "41 */6 * * *"
   workflow_dispatch:
