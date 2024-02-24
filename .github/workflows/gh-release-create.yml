@@ -10,6 +10,8 @@ on:
 concurrency: ${{ github.workflow }}
 jobs:
   gh-release-create:
+    permissions:
+      contents: write
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,7 +19,20 @@ jobs:
         with:
           node-version: "lts/*"
           cache: npm
+          registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm run gh-release-create
+      - id: xversion
+        run: npm run xversion
         env:
-          GH_TOKEN: ${{ secrets.EXTRA_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.xversion.outputs.new-version
+        uses: actions4git/add-commit-push@v1
+      - if: steps.xversion.outputs.new-version
+        run: gh release create "v$NEW_VERSION" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEW_VERSION: ${{ steps.xversion.outputs.new-version }}
+  npm-publish:
+    needs: gh-release-create
+    uses: ./.github/workflows/npm-publish.yml
+    secrets: inherit
