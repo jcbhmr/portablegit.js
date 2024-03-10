@@ -1,6 +1,6 @@
 {
   "name": "portablegit",
-  "version": "100.1.0+2.44.0.windows.1",
+  "version": "100.2.0+2.44.0.windows.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
   "keywords": [
     "git",
@@ -21,7 +21,12 @@
   ],
   "type": "module",
   "exports": {
-    "./*": "./out/PortableGit/*"
+    ".": {
+      "node": "./index.js"
+    },
+    "./*": {
+      "node": "./out/PortableGit/*"
+    }
   },
   "bin": {
     "bash": "out/PortableGit/bin/bash.exe",
@@ -33,11 +38,12 @@
     "sh": "out/PortableGit/bin/sh.exe"
   },
   "files": [
+    "index.js",
     "out/PortableGit"
   ],
   "scripts": {
-    "build": "node ./scripts/build.js",
-    "xversion": "node ./scripts/xversion.js",
+    "build": "node run.js build",
+    "xversion": "node run.js xversion",
     "pretest": "npm run build",
     "test": "npx -p . git --version && npx -p . bash --version",
     "format": "prettier -w ."
