@@ -1,6 +1,6 @@
 {
   "name": "portablegit",
-  "version": "100.2.0+2.44.0.windows.1",
+  "version": "100.3.0+2.44.0.windows.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
   "keywords": [
     "git",
@@ -21,9 +21,6 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "node": "./index.js"
-    },
     "./*": {
       "node": "./out/PortableGit/*"
     }
