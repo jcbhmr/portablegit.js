@@ -11,14 +11,18 @@ export async function build() {
 
   const gitForWindowsVersion = package_.version.split("+")[1];
   const gitVersion = gitForWindowsVersion.match(/^\d+\.\d+\.\d+/)[0];
+  console.debug("gitForWindowsVersion", gitForWindowsVersion);
+  console.debug("gitVersion", gitVersion);
 
   const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`;
   const url = `https://github.com/git-for-windows/git/releases/download/v${gitForWindowsVersion}/${filename}`;
+  console.debug("url", url);
   const response = await fetch(url);
   const archivePath = resolve(`out/${filename}`);
   await mkdir(dirname(archivePath), { recursive: true });
   const writable = Writable.toWeb(createWriteStream(archivePath));
   await response.body.pipeTo(writable);
+  console.log("downloaded %o to %o", url, archivePath);
 
   const portableGitRoot = resolve(`out/PortableGit`);
   await mkdir(portableGitRoot, { recursive: true });
@@ -26,6 +30,7 @@ export async function build() {
     stdio: "inherit",
     cwd: portableGitRoot,
   })`7z x -aos ${archivePath}`;
+  console.log("extracted to %o", portableGitRoot);
 }
 
 export async function xversion() {
@@ -44,23 +49,19 @@ export async function xversion() {
       repo: "git",
     })
   ).data.tag_name.slice(1);
+  console.debug("gitForWindowsVersion", gitForWindowsVersion);
+  console.debug("latestGitForWindowsVersion", latestGitForWindowsVersion);
 
   if (gitForWindowsVersion !== latestGitForWindowsVersion) {
+    console.log("new git for windows version released");
     const versionParts = package_.version.split("+", 2)[0].split(".", 3);
     versionParts[1] = (+versionParts[1] + 1).toString();
     versionParts[2] = "0";
     const newVersion = `${versionParts.join(".")}+${latestGitForWindowsVersion}`;
-    const existingBranch = await octokit.rest.repos
-      .getBranch({
-        owner: process.env.GITHUB_REPOSITORY.split("/")[0],
-        repo: process.env.GITHUB_REPOSITORY.split("/")[1],
-        branch: newVersion,
-      })
-      .catch(() => null);
-    if (!existingBranch) {
-      core.setOutput("new-version", newVersion);
-      await $({ stdio: "inherit" })`npm pkg set version=${newVersion}`;
-    }
+    console.debug("newVersion", newVersion);
+    core.setOutput("new-version", newVersion);
+    await $({ stdio: "inherit" })`npm pkg set version=${newVersion}`;
+    console.log("updated package.json version to %o", newVersion);
   }
 }
 
