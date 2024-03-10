@@ -64,4 +64,4 @@ export async function xversion() {
   }
 }
 
-await { build, xversion }[process.argv[2]];
+await { build, xversion }[process.argv[2]]();
