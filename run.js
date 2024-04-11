@@ -41,13 +41,18 @@ async function generate() {
   const url = `https://github.com/git-for-windows/git/releases/download/v${gfwVersion}/${filename}`;
   console.debug("url %o", url);
   const response = await fetch(url);
-  await response.body.pipeTo(Writable.toWeb(createWriteStream("PortableGit-64-bit.7z.exe")));
+  await response.body.pipeTo(
+    Writable.toWeb(createWriteStream("PortableGit-64-bit.7z.exe")),
+  );
   console.log("downloaded %o to %o", url, "PortableGit-64-bit.7z.exe");
 }
 
 async function build() {
   await mkdir("out", { recursive: true });
-  await $({ stdio: "inherit", cwd: "out" })`7z x -aos ../PortableGit-64-bit.7z.exe`;
+  await $({
+    stdio: "inherit",
+    cwd: "out",
+  })`7z x -aos ../PortableGit-64-bit.7z.exe`;
   console.log("extracted to %o", "out");
 }
 
