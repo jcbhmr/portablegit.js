@@ -18,8 +18,8 @@ async function generate() {
     repo: "git",
   });
   const remoteGfwVersion = latestGfwRelease.tag_name.slice(1);
-  console.debug("local", localGfwVersion);
-  console.debug("remote", remoteGfwVersion);
+  console.debug("local %o", localGfwVersion);
+  console.debug("remote %o", remoteGfwVersion);
 
   if (localGfwVersion !== remoteGfwVersion) {
     console.log("new git for windows version released");
@@ -27,29 +27,28 @@ async function generate() {
     versionParts[1] = (+versionParts[1] + 1).toString();
     versionParts[2] = "0";
     const newVersion = `${versionParts.join(".")}+${remoteGfwVersion}`;
-    console.debug("new version", newVersion);
+    console.debug("new version %o", newVersion);
     await $({ stdio: "inherit" })`npm pkg set version=${newVersion}`;
     console.log("updated package.json version to %o", newVersion);
   }
 
   const gfwVersion = package_.version.split("+")[1];
   const gitVersion = gfwVersion.match(/^\d+\.\d+\.\d+/)[0];
-  console.debug("gfw version", gfwVersion);
-  console.debug("git version", gitVersion);
+  console.debug("gfw version %o", gfwVersion);
+  console.debug("git version %o", gitVersion);
 
   const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`;
   const url = `https://github.com/git-for-windows/git/releases/download/v${gfwVersion}/${filename}`;
-  console.debug("url", url);
+  console.debug("url %o", url);
   const response = await fetch(url);
   await response.body.pipeTo(Writable.toWeb(createWriteStream("PortableGit-64-bit.7z.exe")));
   console.log("downloaded %o to %o", url, "PortableGit-64-bit.7z.exe");
 }
 
 async function build() {
-  const dest = resolve(`out/PortableGit`);
-  await mkdir(dest, { recursive: true });
-  await $({ stdio: "inherit", cwd: dest })`7z x -aos PortableGit-64-bit.7z.exe`;
-  console.log("extracted to %o", dest);
+  await mkdir("out", { recursive: true });
+  await $({ stdio: "inherit", cwd: "out" })`7z x -aos ../PortableGit-64-bit.7z.exe`;
+  console.log("extracted to %o", "out");
 }
 
 await { build, generate }[process.argv[2]]();

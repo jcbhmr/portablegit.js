@@ -22,21 +22,21 @@
   "type": "module",
   "exports": {
     "./*": {
-      "node": "./out/PortableGit/*"
+      "node": "./out/*"
     }
   },
   "bin": {
-    "bash": "out/PortableGit/bin/bash.exe",
-    "git": "out/PortableGit/bin/git.exe",
-    "git-bash": "out/PortableGit/git-bash.exe",
-    "git-cmd": "out/PortableGit/git-cmd.exe",
-    "git-gui": "out/PortableGit/cmd/git-gui.exe",
-    "gitk": "out/PortableGit/cmd/gitk.exe",
-    "sh": "out/PortableGit/bin/sh.exe"
+    "bash": "out/bin/bash.exe",
+    "git": "out/bin/git.exe",
+    "git-bash": "out/git-bash.exe",
+    "git-cmd": "out/git-cmd.exe",
+    "git-gui": "out/cmd/git-gui.exe",
+    "gitk": "out/cmd/gitk.exe",
+    "sh": "out/bin/sh.exe"
   },
   "files": [
     "index.js",
-    "out/PortableGit"
+    "out"
   ],
   "scripts": {
     "generate": "node run.js generate",
