@@ -1,0 +1,58 @@
+name: npm generate
+on:
+  push:
+    branches: "main"
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - .github/**
+      - "!.github/workflows/npm-generate.yml"
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+concurrency: ${{ github.workflow }}
+jobs:
+  npm-generate:
+    permissions:
+      contents: write
+    outputs:
+      pushed: ${{ steps.add-commit-push.outputs.pushed }}
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+      - run: npm ci
+      - run: npm run generate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm test
+      - id: add-commit-push
+        uses: actions4git/add-commit-push@v1
+  npm-publish:
+    needs: npm-generate
+    if: needs.npm-generate.outputs.pushed
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+      - shell: bash
+        run: |
+          version=$(jq -r .version package.json)
+          gh release create "v$version" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
