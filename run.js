@@ -41,7 +41,7 @@ async function generate() {
   const url = `https://github.com/git-for-windows/git/releases/download/v${gfwVersion}/${filename}`;
   console.debug("url", url);
   const response = await fetch(url);
-  const dest = resolve(`out/${filename}`);
+  const dest = "PortableGit-64-bit.7z.exe";
   await mkdir(dirname(dest), { recursive: true });
   await response.body.pipeTo(Writable.toWeb(createWriteStream(dest)));
   console.log("downloaded %o to %o", url, dest);
