@@ -31,7 +31,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm test
       - id: add-commit-push
-        uses: actions4git/add-commit-push@v1
+        run: |
+          git config --global user.name "actions[bot]"
+          git config --global user.email "actions@github.com"
+          git add -A
+          git commit -m "Automated changes"
+          git push -u origin main
   npm-publish:
     needs: npm-generate
     if: needs.npm-generate.outputs.pushed
