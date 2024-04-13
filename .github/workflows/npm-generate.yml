@@ -37,7 +37,7 @@ jobs:
           git add -A
           git commit -m "Automated changes"
           git push -u origin main
-  npm-publish:
+  gh-release-create:
     needs: npm-generate
     if: needs.npm-generate.outputs.pushed
     permissions:
@@ -49,15 +49,13 @@ jobs:
         with:
           node-version: "lts/*"
           cache: npm
-          registry-url: https://registry.npmjs.org/
       - shell: bash
         run: |
           version=$(jq -r .version package.json)
           gh release create "v$version" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  npm-publish:
+    needs: gh-release-create
+    uses: ./.github/workflows/npm-publish.yml
+    secrets: inherit
