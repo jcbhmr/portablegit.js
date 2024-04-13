@@ -35,11 +35,12 @@ jobs:
           git config --global user.name "actions[bot]"
           git config --global user.email "actions@github.com"
           git add -A
-          git commit -m "Automated changes"
+          git commit -m "Automated changes" || exit 0
           git push -u origin main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
   gh-release-create:
     needs: npm-generate
-    if: needs.npm-generate.outputs.pushed
+    if: fromJSON(needs.npm-generate.outputs.pushed)
     permissions:
       contents: write
     runs-on: windows-latest
