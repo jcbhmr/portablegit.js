@@ -38,9 +38,12 @@ jobs:
           git config --global user.name "actions[bot]"
           git config --global user.email "actions@github.com"
           git add -A
-          git commit -m "Automated changes" || exit 0
-          git push -u origin main
-          echo "pushed=true" >> "$GITHUB_OUTPUT"
+          if git commit -m "Automated changes"; then
+            git push -u origin main
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+          fi
   gh-release-create:
     needs: npm-generate
     if: fromJSON(needs.npm-generate.outputs.pushed)
