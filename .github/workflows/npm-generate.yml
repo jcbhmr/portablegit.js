@@ -19,6 +19,9 @@ jobs:
     outputs:
       pushed: ${{ steps.add-commit-push.outputs.pushed }}
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,14 +47,16 @@ jobs:
     permissions:
       contents: write
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
           cache: npm
-      - shell: bash
-        run: |
+      - run: |
           version=$(jq -r .version package.json)
           gh release create "v$version" --generate-notes
         env:
