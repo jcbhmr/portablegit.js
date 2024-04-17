@@ -1,4 +1,4 @@
-name: gh pr create
+name: create-pull-request
 on:
   push:
     branches: "main"
@@ -7,13 +7,13 @@ on:
       - LICENSE
       - .gitignore
       - .github/**
-      - "!.github/workflows/gh-pr-create.yml"
+      - "!.github/workflows/create-pull-request.yml"
   schedule:
     - cron: "41 */6 * * *"
   workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
-  gh-pr-create:
+  create-pull-request:
     permissions:
       contents: write
       pull-requests: write
@@ -34,14 +34,4 @@ jobs:
       - run: npm run generate
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          version=$(jq -r '.version' package.json)
-          branch="generate-$version"
-          if ! git rev-parse --verify "$branch"; then
-            git checkout -b "$branch"
-            git add -A && git commit -m "Generate v$version"
-            git push -u origin "$branch"
-            gh pr create --fill
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v6
