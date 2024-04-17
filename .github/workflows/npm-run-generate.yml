@@ -1,4 +1,4 @@
-name: create-pull-request
+name: npm run generate
 on:
   push:
     branches: "main"
@@ -7,13 +7,13 @@ on:
       - LICENSE
       - .gitignore
       - .github/**
-      - "!.github/workflows/create-pull-request.yml"
+      - "!.github/workflows/npm-run-generate.yml"
   schedule:
     - cron: "41 */6 * * *"
   workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
-  create-pull-request:
+  npm-run-generate:
     permissions:
       contents: write
       pull-requests: write
