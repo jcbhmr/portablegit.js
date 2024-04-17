@@ -3,8 +3,7 @@ on:
   release:
     types: released
   workflow_dispatch:
-  workflow_call:
-concurrency: ${{ github.workflow }}-npm-publish
+concurrency: ${{ github.workflow }}
 jobs:
   npm-publish:
     runs-on: windows-latest

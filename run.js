@@ -32,7 +32,7 @@ async function generate() {
     console.log("updated package.json version to %o", newVersion);
   }
 
-  const gfwVersion = package_.version.split("+")[1];
+  const gfwVersion = remoteGfwVersion;
   const gitVersion = gfwVersion.match(/^\d+\.\d+\.\d+/)[0];
   console.debug("gfw version %o", gfwVersion);
   console.debug("git version %o", gitVersion);

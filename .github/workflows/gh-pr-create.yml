@@ -1,0 +1,46 @@
+name: gh pr create
+on:
+  push:
+    branches: "main"
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - .github/**
+      - "!.github/workflows/gh-pr-create.yml"
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+concurrency: ${{ github.workflow }}
+jobs:
+  gh-pr-create:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions4git/setup-git@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+      - run: npm ci
+      - run: npm run generate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          branch="generate-$(jq -r '.version' package.json)"
+          if git rev-parse --verify "$branch"; then
+            git checkout -b "$branch"
+            git add -A && git commit -m 'Automated changes'
+            git push -u origin "$branch"
+            gh pr create --fill
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
