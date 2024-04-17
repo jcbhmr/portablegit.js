@@ -36,7 +36,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           branch="generate-$(jq -r '.version' package.json)"
-          if git rev-parse --verify "$branch"; then
+          if ! git rev-parse --verify "$branch"; then
             git checkout -b "$branch"
             git add -A && git commit -m 'Automated changes'
             git push -u origin "$branch"
