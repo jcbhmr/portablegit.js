@@ -39,10 +39,10 @@
     "out"
   ],
   "scripts": {
-    "generate": "node run.js generate",
-    "build": "node run.js build",
-    "pretest": "npm run build",
-    "test": "npx -p . git --version && npx -p . bash --version",
+    "generate": "node scripts.js generate",
+    "build": "node scripts.js build",
+    "pretest": "node scripts.js build",
+    "test": "npx --package . git --version && npx --package . bash --version",
     "format": "prettier -w ."
   },
   "os": [
