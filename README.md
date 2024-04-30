@@ -49,7 +49,7 @@ You can use this package just as you would any other npm package that provides
 binaries! It's just that these binaries are Windows-specific. 🤷‍♂️
 
 ```sh
-npx portablegit --version
+npx -p portablegit git --version
 #=> git version 2.X.Y.windows.Z
 ```
 
