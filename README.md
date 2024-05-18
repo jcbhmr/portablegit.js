@@ -17,9 +17,8 @@ npx -p portablegit gitk HEAD
 
 🔶 Use Git for Windows via npm \
 👨‍💻 Provides `bash` via Git Bash \
-💾 Uses a portable installation of Git & Bash \
-**🟦 Only works on Windows** \
-🧰 Useful when you need a specific Git version
+💾 Uses a portable installation of Git & friends \
+**🟦 Only works on Windows**
 
 ## Installation
 
