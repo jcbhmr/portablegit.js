@@ -3,6 +3,13 @@ on:
   release:
     types: released
   workflow_dispatch:
+    inputs:
+      tag:
+        type:
+          required: true
+          type: choice
+          options: [latest, next]
+          default: latest
 concurrency: ${{ github.workflow }}
 jobs:
   npm-publish:
@@ -21,6 +28,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm publish --provenance
+      - run: npm publish --provenance --tag "$TAG"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          TAG: ${{ inputs.tag }}

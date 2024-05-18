@@ -86,7 +86,7 @@ This can be useful if you need to resolve the path to a specific binary (`cat.ex
 ## Development
 
 ![Node.js](https://img.shields.io/static/v1?style=for-the-badge&message=Node.js&color=339933&logo=Node.js&logoColor=FFFFFF&label=)
-![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
+![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
 
 You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. `npm run generate` redownloads the configured version of Git for Windows PortableGit as a 7zip self-extracting archive.
 
