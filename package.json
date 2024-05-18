@@ -1,6 +1,6 @@
 {
   "name": "portablegit",
-  "version": "100.5.0+2.45.0.windows.1",
+  "version": "2.45.11-rc.1",
   "description": "🔄 Redistribution of Git for Windows PortableGit",
   "keywords": [
     "git",
@@ -28,22 +28,29 @@
   "bin": {
     "bash": "out/bin/bash.exe",
     "git": "out/bin/git.exe",
-    "git-bash": "out/git-bash.exe",
-    "git-cmd": "out/git-cmd.exe",
+    "sh": "out/bin/sh.exe",
     "git-gui": "out/cmd/git-gui.exe",
+    "git-receive-pack": "out/cmd/git-receive-pack.exe",
+    "git-upload-pack": "out/cmd/git-upload-pack.exe",
     "gitk": "out/cmd/gitk.exe",
-    "sh": "out/bin/sh.exe"
+    "scalar": "out/cmd/scalar.exe",
+    "start-ssh-agent": "out/cmd/start-ssh-agent.cmd",
+    "start-ssh-pagent": "out/cmd/start-ssh-pagent.cmd",
+    "tig": "out/cmd/tig.exe",
+    "git-bash": "out/git-bash.exe",
+    "git-cmd": "out/git-cmd.exe"
   },
   "files": [
-    "index.js",
-    "out"
+    "out",
+    "scripts.js"
   ],
   "scripts": {
     "generate": "node scripts.js generate",
-    "build": "node scripts.js build",
-    "pretest": "node scripts.js build",
-    "test": "npx --package . git --version && npx --package . bash --version",
-    "format": "prettier -w ."
+    "build": "7z x -aos -oout PortableGit-64-bit.7z.exe",
+    "clean": "rimraf out",
+    "test": "node --test",
+    "format": "prettier -w .",
+    "postinstall": "node scripts.js postinstall"
   },
   "os": [
     "win32"
@@ -51,9 +58,15 @@
   "cpu": [
     "x64"
   ],
+  "dependencies": {
+    "execa": "^9.1.0"
+  },
+  "bundleDependencies": [
+    "execa"
+  ],
   "devDependencies": {
-    "execa": "^8.0.1",
-    "octokit": "^3.2.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.7",
+    "typescript": "latest"
   }
 }

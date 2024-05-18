@@ -7,6 +7,9 @@ concurrency: ${{ github.workflow }}
 jobs:
   npm-publish:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

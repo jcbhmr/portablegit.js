@@ -1,59 +1,44 @@
 #!/usr/bin/env node
-import { $ } from "execa";
-import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { Octokit } from "octokit";
-import { createWriteStream } from "node:fs";
-import { resolve, dirname } from "node:path";
-import { Writable } from "node:stream";
-process.env.DEBUG ||= "execa";
-const package_ = JSON.parse(await readFile("./package.json", "utf8"));
+export {};
 
 async function generate() {
-  const octokit = new Octokit({
-    auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN,
-  });
-  const localGfwVersion = package_.version.split("+", 2)[1];
-  const { data: latestGfwRelease } = await octokit.rest.repos.getLatestRelease({
-    owner: "git-for-windows",
-    repo: "git",
-  });
-  const remoteGfwVersion = latestGfwRelease.tag_name.slice(1);
-  console.debug("local %o", localGfwVersion);
-  console.debug("remote %o", remoteGfwVersion);
+  const { createWriteStream } = await import("node:fs");
+  const { Writable } = await import("node:stream");
+  const { default: assert } = await import("node:assert/strict");
 
-  if (localGfwVersion !== remoteGfwVersion) {
-    console.log("new git for windows version released");
-    const versionParts = package_.version.split("+", 2)[0].split(".", 3);
-    versionParts[1] = (+versionParts[1] + 1).toString();
-    versionParts[2] = "0";
-    const newVersion = `${versionParts.join(".")}+${remoteGfwVersion}`;
-    console.debug("new version %o", newVersion);
-    await $({ stdio: "inherit" })`npm pkg set version=${newVersion}`;
-    console.log("updated package.json version to %o", newVersion);
-  }
+  // CHANGE ME
+  const gfwVersion = "2.45.1.windows.1";
+  const filename = `PortableGit-2.45.1-64-bit.7z.exe`;
 
-  const gfwVersion = remoteGfwVersion;
-  const gitVersion = gfwVersion.match(/^\d+\.\d+\.\d+/)[0];
-  console.debug("gfw version %o", gfwVersion);
-  console.debug("git version %o", gitVersion);
-
-  const filename = `PortableGit-${gitVersion}-64-bit.7z.exe`;
   const url = `https://github.com/git-for-windows/git/releases/download/v${gfwVersion}/${filename}`;
-  console.debug("url %o", url);
+  console.debug("url=%o", url);
   const response = await fetch(url);
+  assert(response.status === 200, `${response.status} ${response.url}`);
   await response.body.pipeTo(
     Writable.toWeb(createWriteStream("PortableGit-64-bit.7z.exe")),
   );
-  console.log("downloaded %o to %o", url, "PortableGit-64-bit.7z.exe");
+  console.log("Downloaded %o to %o", url, "PortableGit-64-bit.7z.exe");
 }
 
-async function build() {
-  await mkdir("out", { recursive: true });
-  await $({
-    stdio: "inherit",
-    cwd: "out",
-  })`7z x -aos ../PortableGit-64-bit.7z.exe`;
-  console.log("extracted to %o", "out");
+// POSTINSTALL RUNS WITH NO DEV DEPENDENCIES!
+async function postinstall() {
+  const { $ } = await import("execa");
+  const { existsSync } = await import("node:fs");
+
+  if (process.cwd() === process.env.INIT_CWD) {
+    // Skip! Local dev `npm install`, not as a dep.
+  } else {
+    // May have already been installed once and had the files deleted.
+    if (existsSync("out/post-install.bat")) {
+      await $({
+        cwd: "out",
+        stdio: "inherit",
+        reject: false,
+      })`post-install.bat`;
+    } else {
+      // Assume already ran.
+    }
+  }
 }
 
-await { build, generate }[process.argv[2]]();
+await { generate, postinstall }[process.argv[2]]();

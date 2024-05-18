@@ -35,6 +35,8 @@ You can install this package using npm or your favorite npm package manager. If 
 npm install --save-dev portablegit
 ```
 
+<sup>This package has a `postinstall` script</sup>
+
 ⚠️ **It's not recommended to install this package globally!** [Install Git for Windows normally](https://gitforwindows.org/) on your system instead. Interested in installing Git globally on more that just Windows machines? Check out [Git - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
 🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
@@ -62,24 +64,29 @@ Available binary commands exposed through this npm package are:
 - **`git-cmd`:** Starts a `cmd.exe` subshell preloaded with `git.exe` and other things in `$PATH`. Does **not** launch a new window.
 - **`git-gui`:** Starts [the Git GUI](https://git-scm.com/docs/git-gui).
 - **`gitk`:** Starts [the GitK GUI](https://git-scm.com/docs/gitk/).
+- `tig`, `start-ssh-agent`, `start-ssh-pagent`, `scalar`, `git-receive-pack` `git-upload-pack`: Extra things that I'm not not smart enough to understand.
+
+This `portablegit` npm package is versioned to follow Git for Windows. For example, Git for Windows releases `v2.45.1.windows.1` (derived from Git 2.45.1) which this `portablegit` package releases as `2.45.11`. Note that there's a `1` suffix appended to the version number. Git for Windows `v2.45.1.windows.2` would then be released as `portablegit@2.45.12` on npm. For `X.Y.0.windows.1` releases the npm-ified `X.Y.01` version specifier is invalid. We need to drop the leading zero to create an `X.Y.1` release.
 
 You can `import.meta.resolve()` or `require.resolve()` anything that would normally be in the extracted `PortableGit/*` folder. Here's an example:
 
 ```js
-const cat = import.meta.resolve("portablegit/usr/bin/cat.exe");
+const cat = import.meta.resolve("portablegit/usr/bin/cat");
 console.log(cat);
-//=> 'file:///C:/Users/you/Documents/myproject/node_modules/portablegit/out/portablegit/usr/bin/cat.exe'
+//=> 'file:///C:/myproject/node_modules/portablegit/out/portablegit/usr/bin/cat'
 
-const cut = require.resolve("portablegit/usr/bin/cut.exe");
+const cut = require.resolve("portablegit/usr/bin/cut");
 console.log(cut);
-//=> 'C:\\Users\\you\\Documents\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\cut.exe'
+//=> 'C:\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\cut'
 ```
 
-This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default.
+This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default. Note that you don't need to use the `.exe` suffix since Windows will helpfully add `.exe` when attempting to run the file.
 
 ## Development
 
 ![Node.js](https://img.shields.io/static/v1?style=for-the-badge&message=Node.js&color=339933&logo=Node.js&logoColor=FFFFFF&label=)
 ![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
 
-You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. `npm run generate` will check for a new Git for Windows PortableGit release and download it if it exists. Make sure you do this manually on each new Git for Windows release. You can subscribe to releases on the [git-for-windows/git](https://github.com/git-for-windows/git) repository.
+You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. `npm run generate` redownloads the configured version of Git for Windows PortableGit as a 7zip self-extracting archive.
+
+Each new upcoming release will first be tried as a prerelease `-rc.N` first to make sure that everything is 99% guarenteed to work when autopublishing.
