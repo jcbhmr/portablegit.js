@@ -6,6 +6,8 @@ on:
 concurrency: ${{ github.workflow }}
 jobs:
   npm-publish:
+    permissions:
+      id-token: write
     runs-on: windows-latest
     defaults:
       run:
@@ -19,6 +21,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm publish
+      - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
