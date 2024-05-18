@@ -35,7 +35,7 @@
     "gitk": "out/cmd/gitk.exe",
     "scalar": "out/cmd/scalar.exe",
     "start-ssh-agent": "out/cmd/start-ssh-agent.cmd",
-    "start-ssh-pagent": "out/cmd/start-ssh-pagent.cmd",
+    "start-ssh-pageant": "out/cmd/start-ssh-pageant.cmd",
     "tig": "out/cmd/tig.exe",
     "git-bash": "out/git-bash.exe",
     "git-cmd": "out/git-cmd.exe"

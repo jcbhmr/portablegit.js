@@ -29,6 +29,8 @@ npx -p portablegit gitk HEAD
 ![Bun](https://img.shields.io/static/v1?style=for-the-badge&message=Bun&color=000000&logo=Bun&logoColor=FFFFFF&label=)
 ![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
 
+🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
+
 You can install this package using npm or your favorite npm package manager. If possible you should use the user or global [Git for Windows](https://gitforwindows.org/) installation instead of this package.
 
 ```sh
@@ -39,16 +41,14 @@ npm install --save-dev portablegit
 
 ⚠️ **It's not recommended to install this package globally!** [Install Git for Windows normally](https://gitforwindows.org/) on your system instead. Interested in installing Git globally on more that just Windows machines? Check out [Git - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
-
-ℹ There is no JavaScript component to this package; it's just a redistribution of the various PortableGit files and binaries.
-
 ## Usage
 
 ![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
 
+ℹ There is no JavaScript component to this package; it's just a redistribution of the PortableGit files and binaries.
+
 You can use this package just as you would any other npm package that provides
-binaries! It's just that these binaries are Windows-specific. 🤷‍♂️
+binaries! **PortableGit only provides binaries for Windows.**
 
 ```sh
 npx -p portablegit git --version
@@ -66,7 +66,7 @@ Available binary commands exposed through this npm package are:
 - **`gitk`:** Starts [the GitK GUI](https://git-scm.com/docs/gitk/).
 - `tig`, `start-ssh-agent`, `start-ssh-pagent`, `scalar`, `git-receive-pack` `git-upload-pack`: Extra things that I'm not not smart enough to understand.
 
-This `portablegit` npm package is versioned to follow Git for Windows. For example, Git for Windows releases `v2.45.1.windows.1` (derived from Git 2.45.1) which this `portablegit` package releases as `2.45.11`. Note that there's a `1` suffix appended to the version number. Git for Windows `v2.45.1.windows.2` would then be released as `portablegit@2.45.12` on npm. For `X.Y.0.windows.1` releases the npm-ified `X.Y.01` version specifier is invalid. We need to drop the leading zero to create an `X.Y.1` release.
+This `portablegit` npm package is versioned to follow Git for Windows releases. For example, Git for Windows `v2.45.1.windows.1` (derived from Git 2.45.1) would be released as `portablegit@2.45.11` on npm. **Note that there's a `1` suffix appended to the version number.** Git for Windows `v2.45.1.windows.2` would then be released as `portablegit@2.45.12` on npm. **The suffix is now a `2`** just like `.windows.2`. For `X.Y.0.windows.1` releases the npm-ified `X.Y.01` version specifier is invalid; we need to drop the leading zero to create an `X.Y.1` release.
 
 You can `import.meta.resolve()` or `require.resolve()` anything that would normally be in the extracted `PortableGit/*` folder. Here's an example:
 

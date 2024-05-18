@@ -24,8 +24,9 @@ async function generate() {
 async function postinstall() {
   const { $ } = await import("execa");
   const { existsSync } = await import("node:fs");
+  const { sep } = await import("node:path")
 
-  if (process.cwd() === process.env.INIT_CWD) {
+  if (process.env.INIT_CWD === process.cwd() || process.env.INIT_CWD?.startsWith(process.cwd() + sep)) {
     // Skip! Local dev `npm install`, not as a dep.
   } else {
     // May have already been installed once and had the files deleted.
