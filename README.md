@@ -89,6 +89,6 @@ This can be useful if you need to resolve the path to a specific binary (`cat.ex
 
 You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. `npm run generate` redownloads the configured version of Git for Windows PortableGit as a 7zip self-extracting archive.
 
-Each new upcoming release will first be tried as a prerelease `-rc.N` first to make sure that everything is 99% guarenteed to work when autopublishing.
+Each new upcoming release will first be tried as a prerelease `-rc.N` first to make sure that everything is 99% guarenteed to work when autopublishing. Make sure to `--tag next`!
 
 This package currently relies on **manual updates** to bump the Git for Windows version. Make sure you update the `version` field in `package.json` and the `gfwVersion` and `filename` constants in `scripts.js` `generate()`.
