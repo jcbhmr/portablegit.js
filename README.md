@@ -92,3 +92,5 @@ You'll need a Windows computer to test this package locally. You can run `npm ru
 Each new upcoming release will first be tried as a prerelease `-rc.N` first to make sure that everything is 99% guarenteed to work when autopublishing. Make sure to `--tag next`!
 
 This package currently relies on **manual updates** to bump the Git for Windows version. Make sure you update the `version` field in `package.json` and the `gfwVersion` and `filename` constants in `scripts.js` `generate()`.
+
+You can publish a release to GitHub releases and npm using [the npm publish GitHub actions workflow](https://github.com/jcbhmr/portablegit.js/actions/workflows/npm-publish.yml).
