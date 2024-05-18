@@ -81,7 +81,7 @@ console.log(cut);
 //=> 'C:\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\cut'
 ```
 
-This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default. Note that you don't need to use the `.exe` suffix since Windows will helpfully add `.exe` when attempting to run the file.
+This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default. Note that you don't need to use the `.exe` suffix since Windows will helpfully add `.exe` suffix when attempting to run the file.
 
 ## Development
 
