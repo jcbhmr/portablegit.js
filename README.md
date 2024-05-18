@@ -44,6 +44,7 @@ npm install --save-dev portablegit
 ## Usage
 
 ![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
+![Terminal](https://img.shields.io/static/v1?style=for-the-badge&message=Terminal&color=4D4D4D&logo=Windows+Terminal&logoColor=FFFFFF&label=)
 
 ℹ There is no JavaScript component to this package; it's just a redistribution of the PortableGit files and binaries.
 
