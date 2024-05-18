@@ -5,11 +5,10 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        type:
-          required: true
-          type: choice
-          options: [latest, next]
-          default: latest
+        required: true
+        type: choice
+        options: [latest, next]
+        default: latest
 concurrency: ${{ github.workflow }}
 jobs:
   npm-publish:
