@@ -31,7 +31,7 @@ npx -p portablegit gitk HEAD
 
 🛑 Only works on Windows x64 systems. Does not work on macOS or Linux.
 
-You can install this package using npm or your favorite npm package manager. If possible you should use the user or global [Git for Windows](https://gitforwindows.org/) installation instead of this package.
+You can install this package using npm or your favorite npm package manager. **If possible you should use the user or global [Git for Windows](https://gitforwindows.org/) installation instead of this package.**
 
 ```sh
 npm install --save-dev portablegit
