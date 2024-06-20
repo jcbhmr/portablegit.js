@@ -7,8 +7,8 @@ async function generate() {
   const { default: assert } = await import("node:assert/strict");
 
   // CHANGE ME
-  const gfwVersion = "2.45.1.windows.1";
-  const filename = `PortableGit-2.45.1-64-bit.7z.exe`;
+  const gfwVersion = "2.45.2.windows.1";
+  const filename = `PortableGit-2.45.2-64-bit.7z.exe`;
 
   const url = `https://github.com/git-for-windows/git/releases/download/v${gfwVersion}/${filename}`;
   console.debug("url=%o", url);
