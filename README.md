@@ -94,6 +94,7 @@ This can be useful if you need to resolve the path to a specific binary (`cat.ex
 - This package currently relies on **manual updates** to bump the Git for Windows version.
 - Make sure you update the `version` field in `package.json` and the constants in `scripts.js` `generate()`.
 - This project may in the future start squashing Git history or use Git LFS to reduce the repository size.
+- `npm run build` currently has a system dependency on the `7z` command. You can install 7zip from [7-zip.org](https://www.7-zip.org/).
 
 Steps to release:
 
