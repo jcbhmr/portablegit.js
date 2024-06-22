@@ -1,7 +1,7 @@
 name: npm publish
 on:
   release:
-    types: released
+    types: published
   workflow_dispatch:
     inputs:
       tag:
@@ -30,4 +30,4 @@ jobs:
       - run: npm publish --provenance --tag "$TAG"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TAG: ${{ inputs.tag }}
+          TAG: ${{ inputs.tag || ((github.event.release.prerelease && 'next') || 'latest') }}

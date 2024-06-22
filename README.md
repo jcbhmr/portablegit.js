@@ -80,17 +80,35 @@ console.log(cut);
 //=> 'C:\\myproject\\node_modules\\portablegit\\out\\portablegit\\usr\\bin\\cut'
 ```
 
-This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default. Note that you don't need to use the `.exe` suffix since Windows will helpfully add `.exe` suffix when attempting to run the file.
+This can be useful if you need to resolve the path to a specific binary (`cat.exe`, `cut.exe`, etc.) that isn't exposed by default.
 
 ## Development
 
 ![Node.js](https://img.shields.io/static/v1?style=for-the-badge&message=Node.js&color=339933&logo=Node.js&logoColor=FFFFFF&label=)
 ![Windows](https://img.shields.io/static/v1?style=for-the-badge&message=Windows&color=0078D4&logo=Windows&logoColor=FFFFFF&label=)
 
-You'll need a Windows computer to test this package locally. You can run `npm run build` to make sure everything looks good locally. `npm run generate` redownloads the configured version of Git for Windows PortableGit as a 7zip self-extracting archive.
+- You'll need a Windows computer to test this package locally.
+- You can run `npm run build` to make sure everything looks good locally.
+- `npm run generate` redownloads the configured version of Git for Windows PortableGit as a 7zip self-extracting archive.
+- Each new upcoming release should first be tried as a prerelease `X.Y.Z-rc.N`.
+- This package currently relies on **manual updates** to bump the Git for Windows version.
+- Make sure you update the `version` field in `package.json` and the constants in `scripts.js` `generate()`.
+- This project may in the future start squashing Git history or use Git LFS to reduce the repository size.
 
-Each new upcoming release will first be tried as a prerelease `X.Y.Z-rc.N` first to make sure that everything is 99% guarenteed to work when autopublishing. Make sure to `--tag next`!
+Steps to release:
 
-This package currently relies on **manual updates** to bump the Git for Windows version. Make sure you update the `version` field in `package.json` and the `gfwVersion` and `filename` constants in `scripts.js` `generate()`.
+1. Change the version in `package.json` to the new version RC like `2.45.21-rc.1`.
+2. Change the version in `scripts.js` `generate()` to the new version tag like `2.45.2.windows.1`.
+3. Change the file name in `scripts.js` `generate()` to the new version tag like `PortableGit-2.45.2-64-bit.7z.exe`.
+4. Run `npm run generate` to vendor the new version.
+5. Run `npm run build` and `npm test` to make sure everything works. Check that `git --version` matches the new version.
+6. Push to GitHub.
+7. Create a new release on GitHub with the new `v2.45.21-rc.1` tag.
+8. Watch and wait for CI to pass. This will publush a `next` `2.45.21-rc.1` version to npm.
+9. Make sure it works using `npx -p portablegit@next git --version` or similar.
+10. Change the version in `package.json` to the new version like `2.45.21`.
+11. Push to GitHub.
+12. Create a new release on GitHub with the new `v2.45.21` tag.
+13. Watch and wait for CI to pass. This will publish a `latest` `2.45.21` version to npm.
 
-You can publish a release to GitHub releases and npm using [the npm publish GitHub actions workflow](https://github.com/jcbhmr/portablegit.js/actions/workflows/npm-publish.yml).
+**TL;DR:** Do a prelease `-rc.1` first to make sure things work before doing the actual release. This lets us mirror the Git for Windows version numbers without a special suffix if we get things wrong.

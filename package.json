@@ -50,7 +50,8 @@
     "clean": "rimraf out",
     "test": "node --test",
     "format": "prettier -w .",
-    "postinstall": "node scripts.js postinstall"
+    "postinstall": "node scripts.js postinstall",
+    "squash": "node scripts.js squash"
   },
   "os": [
     "win32"
